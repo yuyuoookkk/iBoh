@@ -26,8 +26,8 @@ onMounted(async () => {
         name: 'M-Class Core Node',
         description: 'The foundational neural processor. 16 cores, 31.4 Teraflops.',
         price: 199900,
-        displayPrice: '$1,999.00',
-        image: '/sequence/ezgif-frame-001.jpg',
+        displayPrice: '∞',
+        image: '/mypacar.jpeg',
       },
       {
         id: 'mclass-core-matrix',

@@ -67,6 +67,13 @@ export async function initDatabase() {
 
     console.log('[DB] Tables verified / created.');
 
+    try {
+      await conn.query(`UPDATE products SET image = '/mypacar.jpeg' WHERE id = 'mclass-core-node'`);
+    } catch (e) {
+      console.error('[DB] Failed to update mclass-core-node image:', e.message);
+    }
+
+
     // Seed products if empty
     const [rows] = await conn.query('SELECT COUNT(*) as count FROM products');
     if (rows[0].count === 0) {
@@ -85,8 +92,8 @@ async function seedProducts(conn) {
       id: 'mclass-core-node',
       name: 'Aq Sayang Natashia',
       description: 'I love you so much my pacar',
-      price: 199900,
-      image: '/sequence/ezgif-frame-001.jpg',
+      price: '∞',
+      image: '/mypacar.jpeg',
     },
     {
       id: 'mclass-core-matrix',

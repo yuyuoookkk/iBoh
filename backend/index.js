@@ -33,7 +33,7 @@ app.get('/api/products', async (_req, res) => {
     const [rows] = await pool.query('SELECT * FROM products ORDER BY price ASC');
     const formatted = rows.map((p) => ({
       ...p,
-      displayPrice: `$${(p.price / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+      displayPrice: p.id === 'mclass-core-node' ? '∞' : `$${(p.price / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
     }));
     res.json(formatted);
   } catch (err) {
