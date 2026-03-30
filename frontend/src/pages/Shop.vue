@@ -97,8 +97,7 @@ function getQty(productId: string) {
 
               <div>
                 <div class="aspect-square mb-6 border border-apple-neon/20 overflow-hidden relative">
-                   <div class="absolute inset-0 bg-apple-neon mix-blend-overlay opacity-20"></div>
-                   <img :src="p.image" class="w-full h-full object-cover filter contrast-125 sepia-[.2] hue-rotate-[70deg] scale-110 group-hover:scale-100 transition-transform duration-700" alt="product" />
+                   <img :src="p.image" class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700" alt="product" />
                 </div>
                 
                 <h3 class="text-xl font-bold tracking-widest text-white mb-2 uppercase">{{ p.name }}</h3>
