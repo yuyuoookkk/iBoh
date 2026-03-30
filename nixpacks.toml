@@ -2,7 +2,7 @@
 # Builds frontend, copies to backend/public, then installs backend deps
 
 [phases.setup]
-nixPkgs = ["nodejs_18"]
+nixPkgs = ["nodejs_20"]
 
 [phases.install_frontend]
 dependsOn = ["setup"]
