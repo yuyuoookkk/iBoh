@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-apple-black text-apple-light antialiased;
+    background-color: #000;
+  }
+  
+  ::selection {
+    @apply bg-apple-neon text-apple-black;
+  }
+}
+
+/* Hide scrollbar for cleaner look if needed, though Lenis handles smooth scrolling 
+   We usually hide default scrollbar for these cinematic experiences. */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
