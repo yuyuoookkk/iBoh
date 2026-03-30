@@ -14,7 +14,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3001;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
-const SERVER_URL = process.env.SERVER_URL || `http://localhost:${PORT}`;
+const RAILWAY_DOMAIN = process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : null;
+const SERVER_URL = process.env.SERVER_URL || RAILWAY_DOMAIN || `http://localhost:${PORT}`;
 
 // In production, allow same-origin. In dev, allow the Vite dev server.
 app.use(cors({ origin: CLIENT_URL }));
