@@ -11,7 +11,18 @@ const processing = ref(false);
 const paymentDone = ref(false);
 const error = ref('');
 
-function formatPrice(cents: number) {
+function formatTotalAmount(cents: number) {
+  if (orderData.value?.items?.some((i: any) => i.productId === 'mclass-core-node')) {
+    return '∞';
+  }
+  return `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+}
+
+function formatItemPrice(item: any, isSubtotal: boolean = false) {
+  if (item.productId === 'mclass-core-node') {
+    return '∞';
+  }
+  const cents = isSubtotal ? item.price * item.quantity : item.price;
   return `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 }
 
@@ -136,7 +147,7 @@ async function handlePay() {
                 {{ item.productName }} <span class="text-apple-gray/50">×{{ item.quantity }}</span>
               </span>
               <span class="text-white tabular-nums tracking-widest">
-                {{ formatPrice(item.price * item.quantity) }}
+                {{ formatItemPrice(item, true) }}
               </span>
             </div>
           </div>
@@ -145,7 +156,7 @@ async function handlePay() {
           <div class="border-t border-apple-neon/20 pt-4 flex justify-between items-center">
             <span class="text-xs text-apple-gray tracking-widest">TOTAL</span>
             <span class="text-xl text-apple-neon font-sans font-light tabular-nums">
-              {{ orderData ? formatPrice(orderData.totalAmount) : '$0.00' }}
+              {{ orderData ? formatTotalAmount(orderData.totalAmount) : '$0.00' }}
             </span>
           </div>
         </div>
@@ -168,7 +179,7 @@ async function handlePay() {
             </svg>
             PROCESSING...
           </span>
-          <span v-else>PAY {{ orderData ? formatPrice(orderData.totalAmount) : '' }}</span>
+          <span v-else>PAY {{ orderData ? formatTotalAmount(orderData.totalAmount) : '' }}</span>
         </button>
 
         <div class="mt-4 text-[10px] text-apple-gray/50 tracking-widest text-center">

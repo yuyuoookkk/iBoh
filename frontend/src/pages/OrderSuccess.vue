@@ -29,7 +29,18 @@ onMounted(async () => {
   loading.value = false;
 });
 
-function formatPrice(cents: number) {
+function formatTotalAmount(cents: number) {
+  if (orderData.value?.items?.some((i: any) => i.productId === 'mclass-core-node')) {
+    return '∞';
+  }
+  return `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+}
+
+function formatItemPrice(item: any, isSubtotal: boolean = false) {
+  if (item.productId === 'mclass-core-node') {
+    return '∞';
+  }
+  const cents = isSubtotal ? item.price * item.quantity : item.price;
   return `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 }
 </script>
@@ -71,7 +82,7 @@ function formatPrice(cents: number) {
             RECEIPT → <span class="text-white">{{ orderData.customerEmail }}</span>
           </div>
           <div v-if="orderData?.totalAmount">
-            AMOUNT: <span class="text-apple-neon">{{ formatPrice(orderData.totalAmount) }}</span>
+            AMOUNT: <span class="text-apple-neon">{{ formatTotalAmount(orderData.totalAmount) }}</span>
           </div>
           <div>
             STATUS: <span class="text-apple-neon uppercase">{{ orderData?.status || 'CONFIRMED' }}</span>
@@ -86,7 +97,7 @@ function formatPrice(cents: number) {
               class="flex justify-between py-2 border-b border-apple-neon/10"
             >
               <span class="text-white">{{ item.productName }} <span class="text-apple-gray">×{{ item.quantity }}</span></span>
-              <span class="text-apple-neon tabular-nums">{{ formatPrice(item.price * item.quantity) }}</span>
+              <span class="text-apple-neon tabular-nums">{{ formatItemPrice(item, true) }}</span>
             </div>
           </div>
         </div>

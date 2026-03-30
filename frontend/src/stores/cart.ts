@@ -36,9 +36,12 @@ export const useCartStore = defineStore(
       items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
     );
 
-    const totalDisplay = computed(() =>
-      `$${(totalCents.value / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`
-    );
+    const totalDisplay = computed(() => {
+      if (items.value.some(i => i.productId === 'mclass-core-node')) {
+        return '∞';
+      }
+      return `$${(totalCents.value / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+    });
 
     function addItem(product: Product) {
       const existing = items.value.find((i) => i.productId === product.id);

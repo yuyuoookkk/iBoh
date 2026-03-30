@@ -68,7 +68,11 @@ async function handleCheckout() {
   }
 }
 
-function formatPrice(cents: number) {
+function formatItemPrice(item: any, isSubtotal: boolean = false) {
+  if (item.productId === 'mclass-core-node') {
+    return '∞';
+  }
+  const cents = isSubtotal ? item.price * item.quantity : item.price;
   return `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 }
 
@@ -140,7 +144,7 @@ onMounted(() => {
               <!-- Unit Price -->
               <div class="w-auto md:w-32 text-left md:text-center text-sm text-apple-gray tracking-widest shrink-0">
                 <span class="md:hidden text-[10px] mr-2">PRICE:</span>
-                {{ formatPrice(item.price) }}
+                {{ formatItemPrice(item) }}
               </div>
 
               <!-- Quantity Controls -->
@@ -165,7 +169,7 @@ onMounted(() => {
               <!-- Subtotal -->
               <div class="w-auto md:w-32 text-left md:text-right text-sm text-apple-neon tracking-widest tabular-nums font-bold shrink-0">
                 <span class="md:hidden text-[10px] mr-2 text-apple-gray">SUBTOTAL:</span>
-                {{ formatPrice(item.price * item.quantity) }}
+                {{ formatItemPrice(item, true) }}
               </div>
 
               <!-- Remove -->
